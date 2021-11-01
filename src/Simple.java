@@ -37,6 +37,7 @@ public class Simple extends JFrame {
     getContentPane().add(panel);
     
     panel.setLayout(null);
+    panel.setToolTipText("A Panel container");
     
     JButton beep = new JButton("Beep");
     beep.setBounds(80, 60, 80, 40);
@@ -45,6 +46,7 @@ public class Simple extends JFrame {
             toolkit.beep();
         }
     });
+    beep.setToolTipText("A Beep button");
     
     JButton close = new JButton("Close");
     close.setBounds(200, 60, 80, 40);
@@ -53,7 +55,8 @@ public class Simple extends JFrame {
             System.exit(0);
         }
     });
-    
+    close.setToolTipText("A Close button");
+ 
     panel.add(beep);
     panel.add(close);
   }
