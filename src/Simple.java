@@ -2,15 +2,22 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
 
 /**
  * Example from book The Java Swing tutorial crated by dovari.sudheerkiran@gmail.com 
- * page10.
- * Centering on the screen with buttons beep(make sounds) and close(exit frame)
+ * page17.
+ * Centering on the screen with buttons beep(make sounds) and menubar file-menu(close-item) 
+ * and test-item
  *
  * @author Volkov Artem
  *
@@ -25,7 +32,7 @@ public class Simple extends JFrame {
   * ...Constructor for sets parameters of JFrame...
   */
   public Simple() {
-    setTitle("Buttons");
+    setTitle("JMenuBar");
     setSize(400, 300);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     
@@ -35,10 +42,10 @@ public class Simple extends JFrame {
     
     JPanel panel = new JPanel();
     getContentPane().add(panel);
-    
     panel.setLayout(null);
     panel.setToolTipText("A Panel container");
     
+    // Button beep
     JButton beep = new JButton("Beep");
     beep.setBounds(80, 60, 80, 40);
     beep.addActionListener(new ActionListener() {
@@ -47,18 +54,39 @@ public class Simple extends JFrame {
         }
     });
     beep.setToolTipText("A Beep button");
-    
-    JButton close = new JButton("Close");
-    close.setBounds(200, 60, 80, 40);
-    close.addActionListener(new ActionListener() {
+    panel.add(beep);
+
+    // JMenu file with close Item
+    JMenu file = new JMenu("File");
+    file.setMnemonic(KeyEvent.VK_F);
+
+    ImageIcon icon = new ImageIcon("exit.png");
+    JMenuItem fileClose = new JMenuItem("Close", icon);
+    fileClose.setMnemonic(KeyEvent.VK_C);
+    fileClose.setToolTipText("Exit application");
+    fileClose.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent event) {
             System.exit(0);
         }
     });
-    close.setToolTipText("A Close button");
- 
-    panel.add(beep);
-    panel.add(close);
+    file.add(fileClose);                                    // MenuItem to Menu         
+
+    // JMenuItem test
+    //    JMenu test = new JMenu("Test");
+    JMenuItem testItem = new JMenuItem("Test");
+    //    testItem.setMnemonic(KeyEvent.VK_T);                 // Does not work
+    testItem.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
+            System.out.println("Test");
+        }
+    });
+    //    test.add(testItem);
+    
+    // Add file and test to menubar
+    JMenuBar menubar = new JMenuBar();
+    menubar.add(file);
+    menubar.add(testItem);
+    setJMenuBar(menubar);
   }
   
   /** 
