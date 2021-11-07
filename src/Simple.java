@@ -1,23 +1,29 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.border.EtchedBorder;
 
 /**
  * Example from book The Java Swing tutorial crated by dovari.sudheerkiran@gmail.com 
- * page17.
- * Centering on the screen with buttons beep(make sounds) and menubar file-menu(close-item) 
- * and test-item
+ * page28.
+ * Centering on the screen with buttons beep(make sounds) and menubar file(with items, submenus) 
+ * and test-item and checkBoxmenuItem view
  *
  * @author Volkov Artem
  *
@@ -25,26 +31,27 @@ import javax.swing.JPanel;
 */
 public class Simple extends JFrame {
   
-
+  private JLabel statusBar = new JLabel(" Show status");
   private Toolkit toolkit;
-
   /** 
   * ...Constructor for sets parameters of JFrame...
   */
+  
   public Simple() {
-    setTitle("JMenuBar");
+    setTitle("CheckBoxMenuItem");
     setSize(400, 300);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     
     toolkit = getToolkit();
-    Dimension size = toolkit.getScreenSize();
-    setLocation(size.width/2 - getWidth()/2,  size.height/2 - getHeight()/2);
+    //    Dimension size = toolkit.getScreenSize();
+    //    setLocation(size.width/2 - getWidth()/2,  size.height/2 - getHeight()/2);
+    setLocationRelativeTo(null);
     
     JPanel panel = new JPanel();
     getContentPane().add(panel);
     panel.setLayout(null);
     panel.setToolTipText("A Panel container");
-    
+
     // Button beep
     JButton beep = new JButton("Beep");
     beep.setBounds(80, 60, 80, 40);
@@ -60,8 +67,8 @@ public class Simple extends JFrame {
     JMenu file = new JMenu("File");
     file.setMnemonic(KeyEvent.VK_F);
 
-    ImageIcon icon = new ImageIcon("exit.png");
-    JMenuItem fileClose = new JMenuItem("Close", icon);
+    ImageIcon iconClose = new ImageIcon("exit.png");
+    JMenuItem fileClose = new JMenuItem("Close", iconClose);
     fileClose.setMnemonic(KeyEvent.VK_C);
     fileClose.setToolTipText("Exit application");
     fileClose.addActionListener(new ActionListener() {
@@ -69,7 +76,59 @@ public class Simple extends JFrame {
             System.exit(0);
         }
     });
+    fileClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+    
+    ImageIcon iconNew = new ImageIcon("new.png");
+    JMenuItem fileNew = new JMenuItem("New", iconNew);
+    fileNew.setMnemonic(KeyEvent.VK_N);
+    
+    ImageIcon iconOpen = new ImageIcon("open.png");
+    JMenuItem fileOpen = new JMenuItem("Open", iconOpen);
+    fileOpen.setMnemonic(KeyEvent.VK_O);
+    
+    ImageIcon iconSave = new ImageIcon("save.png");
+    JMenuItem fileSave = new JMenuItem("Save", iconSave);
+    fileSave.setMnemonic(KeyEvent.VK_S);
+    
+    // Submenu import 
+    JMenu imp = new JMenu("Import");
+    imp.setMnemonic(KeyEvent.VK_M);
+    
+    JMenuItem newsf = new JMenuItem("Import newsfeedlist...");
+    JMenuItem bookm = new JMenuItem("Import bookmarks...");
+    JMenuItem mail = new JMenuItem("Import mail...");
+    imp.add(newsf);
+    imp.add(bookm);
+    imp.add(mail);
+    
+    // Menu file
+    file.add(fileNew);                                      //  
+    file.add(fileOpen);                                     // 
+    file.add(fileSave);                                     // 
+    file.addSeparator();
+    file.add(imp);                                     // 
+    file.addSeparator();
     file.add(fileClose);                                    // MenuItem to Menu         
+   
+    // Label statusbar and view menu 
+    statusBar.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+    add(statusBar, BorderLayout.SOUTH);
+    
+    JMenu view = new JMenu("View");
+    view.setMnemonic(KeyEvent.VK_V);
+    JCheckBoxMenuItem sbar = new JCheckBoxMenuItem("Show statusbar");
+    sbar.setState(true);
+    
+    sbar.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
+          if (statusBar.isVisible()) {
+              statusBar.setVisible(false);
+          } else {
+              statusBar.setVisible(true);
+          }
+        }
+    });
+    view.add(sbar);
 
     // JMenuItem test
     //    JMenu test = new JMenu("Test");
@@ -85,6 +144,7 @@ public class Simple extends JFrame {
     // Add file and test to menubar
     JMenuBar menubar = new JMenuBar();
     menubar.add(file);
+    menubar.add(view);
     menubar.add(testItem);
     setJMenuBar(menubar);
   }
