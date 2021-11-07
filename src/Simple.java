@@ -1,9 +1,12 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+//import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+//import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,15 +18,16 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
+//import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 /**
  * Example from book The Java Swing tutorial crated by dovari.sudheerkiran@gmail.com 
  * page28.
  * Centering on the screen with buttons beep(make sounds) and menubar file(with items, submenus) 
- * and test-item and checkBoxmenuItem view
+ * and test-item and checkBoxmenuItem view and PopMenu(that show when released right button Mouse)
  *
  * @author Volkov Artem
  *
@@ -131,7 +135,6 @@ public class Simple extends JFrame {
     view.add(sbar);
 
     // JMenuItem test
-    //    JMenu test = new JMenu("Test");
     JMenuItem testItem = new JMenuItem("Test");
     //    testItem.setMnemonic(KeyEvent.VK_T);                 // Does not work
     testItem.addActionListener(new ActionListener() {
@@ -139,7 +142,23 @@ public class Simple extends JFrame {
             System.out.println("Test");
         }
     });
-    //    test.add(testItem);
+
+    // JPopupMenu
+    JPopupMenu menuPop = new JPopupMenu();
+    JMenuItem menuItemBeep = new JMenuItem("Beep");
+    menuItemBeep.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+          toolkit.beep();
+      }
+    });
+    menuPop.add(menuItemBeep);
+    panel.addMouseListener(new MouseAdapter() {
+      public void mouseReleased(MouseEvent event) {
+          if (event.getButton() == event.BUTTON3) {
+              menuPop.show(event.getComponent(), event.getX(), event.getY());
+          }
+      }
+    });
     
     // Add file and test to menubar
     JMenuBar menubar = new JMenuBar();
