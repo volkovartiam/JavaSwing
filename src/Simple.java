@@ -19,6 +19,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 //import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
@@ -42,7 +43,7 @@ public class Simple extends JFrame {
   */
   
   public Simple() {
-    setTitle("CheckBoxMenuItem");
+    setTitle("JToolBar");
     setSize(400, 300);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     
@@ -159,6 +160,18 @@ public class Simple extends JFrame {
           }
       }
     });
+    
+    // JToolbar
+    JToolBar toolbar = new JToolBar();
+    JButton exitJbtn = new JButton(iconClose);
+    exitJbtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+        System.exit(0);
+      }
+    });
+    
+    toolbar.add(exitJbtn);
+    add(toolbar, BorderLayout.WEST);
     
     // Add file and test to menubar
     JMenuBar menubar = new JMenuBar();
