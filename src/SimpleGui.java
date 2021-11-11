@@ -33,19 +33,21 @@ import javax.swing.border.EtchedBorder;
  *
  * @version 1.0
 */
-public class Simple extends JFrame {
+public class SimpleGui extends JFrame {
   
-  private JLabel statusBar = new JLabel(" Show status");
   Panel panel = new Panel();
+  JLabel statusBarLbl = new JLabel(" Show status");
+  
   MenuFile file = new MenuFile();
-  Toolbar toolbar = new Toolbar();
+  JMenu view = new JMenu("View");
   TestItem testItem = new TestItem();
+  Toolbar toolbar = new Toolbar();
   
   /** 
   * ...Constructor for sets parameters of JFrame...
   */
   
-  public Simple() {
+  public SimpleGui() {
     setTitle("JToolBar");
     setSize(400, 300);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -53,26 +55,10 @@ public class Simple extends JFrame {
 
     getContentPane().add(panel);
 
-    statusBar.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
-    add(statusBar, BorderLayout.SOUTH);
+    statusBarLbl.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+    add(statusBarLbl, BorderLayout.SOUTH);
     
-
-    JMenu view = new JMenu("View");
-    view.setMnemonic(KeyEvent.VK_V);
-    JCheckBoxMenuItem sbar = new JCheckBoxMenuItem("Show statusbar");
-    sbar.setState(true);
-    
-    sbar.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent event) {
-          if (statusBar.isVisible()) {
-              statusBar.setVisible(false);
-          } else {
-              statusBar.setVisible(true);
-          }
-        }
-    });
-    view.add(sbar);
-
+    addViewMenu();
     add(toolbar, BorderLayout.WEST);
     
     // Add file and test to menubar
@@ -87,7 +73,35 @@ public class Simple extends JFrame {
   * ...main methode for creating example of frame...
   */
   public static void main(final String[] args) {
-    Simple simple = new Simple();
+    SimpleGui simple = new SimpleGui();
     simple.setVisible(true);
   }
+  
+  /** 
+  * ...this methode add menu and control statusbar...
+  */
+  
+  public void addViewMenu() {
+    // JMenu view
+    view.setMnemonic(KeyEvent.VK_V);
+    JCheckBoxMenuItem sbar = new JCheckBoxMenuItem("Show statusbar");
+    sbar.setState(true);
+    
+    sbar.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
+          if (statusBarLbl.isVisible()) {
+              statusBarLbl.setVisible(false);
+          } else {
+              statusBarLbl.setVisible(true);
+          }
+        }
+    });
+    view.add(sbar);
+    
+  }
+
+
 }
+
+
+
