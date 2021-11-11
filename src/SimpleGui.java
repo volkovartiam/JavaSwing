@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 //import java.awt.event.MouseEvent;
 //import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
+//import javax.swing.BoxLayout;
 //import javax.swing.ImageIcon;
 //import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -20,7 +21,7 @@ import javax.swing.JMenuBar;
 //import javax.swing.JPopupMenu;
 //import javax.swing.JToolBar;
 //import javax.swing.KeyStroke;
-//import javax.swing.UIManager;
+import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 /**
@@ -35,13 +36,13 @@ import javax.swing.border.EtchedBorder;
 */
 public class SimpleGui extends JFrame {
   
-  Panel panel = new Panel();
+  PanelMain panel = new PanelMain();
   JLabel statusBarLbl = new JLabel(" Show status");
   
   MenuFile file = new MenuFile();
   JMenu view = new JMenu("View");
   TestItem testItem = new TestItem();
-  Toolbar toolbar = new Toolbar();
+  PanelToolbox toolbar = new PanelToolbox();
   
   /** 
   * ...Constructor for sets parameters of JFrame...
@@ -54,16 +55,15 @@ public class SimpleGui extends JFrame {
     setLocationRelativeTo(null);
 
     getContentPane().add(panel);
-
+    
     statusBarLbl.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
     add(statusBarLbl, BorderLayout.SOUTH);
+    add(toolbar, BorderLayout.EAST);
     
-    addViewMenu();
-    add(toolbar, BorderLayout.WEST);
-    
-    // Add file and test to menubar
+    // Add file, view and test to menubar
     JMenuBar menubar = new JMenuBar();
     menubar.add(file);
+    setViewMenu();
     menubar.add(view);
     menubar.add(testItem);
     setJMenuBar(menubar);
@@ -73,7 +73,14 @@ public class SimpleGui extends JFrame {
   * ...main methode for creating example of frame...
   */
   public static void main(final String[] args) {
-    SimpleGui simple = new SimpleGui();
+    
+    try {
+      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+      System.out.println("Error" + e.getStackTrace());
+    }
+
+    var simple = new SimpleGui();
     simple.setVisible(true);
   }
   
@@ -81,7 +88,7 @@ public class SimpleGui extends JFrame {
   * ...this methode add menu and control statusbar...
   */
   
-  public void addViewMenu() {
+  public void setViewMenu() {
     // JMenu view
     view.setMnemonic(KeyEvent.VK_V);
     JCheckBoxMenuItem sbar = new JCheckBoxMenuItem("Show statusbar");
@@ -99,8 +106,6 @@ public class SimpleGui extends JFrame {
     view.add(sbar);
     
   }
-
-
 }
 
 
