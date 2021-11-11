@@ -1,8 +1,10 @@
 //import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+//import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+//import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 //import javax.swing.border.EtchedBorder;
 
@@ -23,15 +25,36 @@ public class Toolbar extends JToolBar {
   
   public Toolbar() {
     
-    ImageIcon iconClose = new ImageIcon("exit.png");
-    JButton exitJbtn = new JButton(iconClose);
-    exitJbtn.addActionListener(new ActionListener() {
+    super(JToolBar.VERTICAL);
+
+    ImageIcon iconNew = new ImageIcon("new.png");
+    JButton newJbtn = new JButton(iconNew);
+    newJbtn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
-        System.exit(0);
+        System.out.println("NEW");
       }
     });
+    this.add(newJbtn);
+
+    ImageIcon iconOpen = new ImageIcon("open.png");
+    JButton openJbtn = new JButton(iconOpen);
+    openJbtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+        System.out.println("OPEN");
+      }
+    });
+    this.add(openJbtn);
     
-    this.add(exitJbtn);
-    
+
+    ImageIcon iconSave = new ImageIcon("save.png");
+
+    JButton saveJbtn = new JButton(iconSave);
+    saveJbtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+        System.out.println("SAVE");
+      }
+    });
+    this.add(saveJbtn);
+
   }
 }

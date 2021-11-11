@@ -18,7 +18,7 @@ import javax.swing.JPopupMenu;
  * @version 1.0
 */
 
-public class Panel extends JPanel {
+public class PanelMain extends JPanel {
 
   private Toolkit toolkit;
   
@@ -26,7 +26,7 @@ public class Panel extends JPanel {
   * ...Constructor for sets parameters of JPanel...
   */
   
-  public Panel() {
+  public PanelMain() {
 
     toolkit = getToolkit();
     this.setLayout(null);
