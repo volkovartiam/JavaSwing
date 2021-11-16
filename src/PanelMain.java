@@ -29,10 +29,8 @@ public class PanelMain extends JPanel {
   private Toolkit toolkit;
   private JList list;
   private DefaultListModel model;
-  
   Locale locale;
 
-  
   /** 
   * ...Constructor for sets parameters of JPanel...
   */
@@ -60,9 +58,8 @@ public class PanelMain extends JPanel {
           System.out.println(s);
 
           if (!model.isEmpty()) {
-            model.clear();
-          }
-          if (event.getID() == ActionEvent.ACTION_PERFORMED) {
+            model.clear(); 
+          } else if (event.getID() == ActionEvent.ACTION_PERFORMED) {
             model.addElement(" Event ID: ACTION_PERFORMED ");
           }
           
@@ -82,12 +79,23 @@ public class PanelMain extends JPanel {
           if ((mod & ActionEvent.CTRL_MASK) > 0) {
             buffer.append("Ctrl ");
           }
-
           model.addElement(buffer);
       }
     });
     beep.setToolTipText("A Beep button");
     this.add(beep);
+    
+    // exit buttun with inner listener class
+    JButton exit = new JButton("Exit");
+    exit.setBounds(20, 158, 80, 40);
+    this.add(exit);
+    ButtonListener listener = new ButtonListener();
+    exit.addActionListener(listener);
+
+    // text buttun with derived listener class
+    MyButton text = new MyButton("Text");
+    text.setBounds(20, 209, 80, 40);
+    this.add(text);
     
     // JPopupMenu beep
     JPopupMenu menuPop = new JPopupMenu();
@@ -97,7 +105,6 @@ public class PanelMain extends JPanel {
           toolkit.beep();
       }
     });
-    
     menuPop.add(menuItemBeep);
     
     this.addMouseListener(new MouseAdapter() {
@@ -107,6 +114,11 @@ public class PanelMain extends JPanel {
           }
       }
     });
-    
+  }
+  
+  class ButtonListener implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+      System.exit(0);
+    }
   }
 }
