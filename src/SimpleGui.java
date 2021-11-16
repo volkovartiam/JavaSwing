@@ -16,6 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 //import javax.swing.JMenuItem;
 //import javax.swing.JPanel;
 //import javax.swing.JPopupMenu;
@@ -44,13 +47,19 @@ public class SimpleGui extends JFrame {
   TestItem testItem = new TestItem();
   PanelToolbox toolbar = new PanelToolbox();
   
+  JTextPane txt = new JTextPane();
+  JScrollPane scrollPane = new JScrollPane(txt);
+  JPanel eventPanel = new JPanel(); 
+  
+  
   /** 
   * ...Constructor for sets parameters of JFrame...
   */
   
   public SimpleGui() {
-    setTitle("JToolBar");
+    setTitle("Event object");
     setSize(400, 300);
+    eventPanel.setSize(400, 100);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
 
@@ -67,6 +76,11 @@ public class SimpleGui extends JFrame {
     menubar.add(view);
     menubar.add(testItem);
     setJMenuBar(menubar);
+    
+    //scrollPane.setSize(200, 10);
+    //add(eventPanel);
+    //add(scrollPane);
+    
   }
   
   /** 
