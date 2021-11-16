@@ -3,7 +3,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+//import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -21,6 +27,11 @@ import javax.swing.JPopupMenu;
 public class PanelMain extends JPanel {
 
   private Toolkit toolkit;
+  private JList list;
+  private DefaultListModel model;
+  
+  Locale locale;
+
   
   /** 
   * ...Constructor for sets parameters of JPanel...
@@ -31,13 +42,48 @@ public class PanelMain extends JPanel {
     toolkit = getToolkit();
     this.setLayout(null);
     this.setToolTipText("A Panel container");
-  
+    model = new DefaultListModel();
+    model.addElement(" ID ");
+    list = new JList(model);
+    list.setBounds(110, 22, 227, 115);
+    this.add(list);
+    
     // Button beep
-    JButton beep = new JButton("Beep");
-    beep.setBounds(80, 60, 80, 40);
+    JButton beep = new JButton("Beep_OK");
+    beep.setBounds(20, 22, 80, 40);
     beep.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
           toolkit.beep();
+          Date date = new Date();
+          String s = DateFormat.getTimeInstance(DateFormat.MEDIUM, 
+              locale.getDefault()).format(date);
+          System.out.println(s);
+
+          if (!model.isEmpty()) {
+            model.clear();
+          }
+          if (event.getID() == ActionEvent.ACTION_PERFORMED) {
+            model.addElement(" Event ID: ACTION_PERFORMED ");
+          }
+          
+          model.addElement(" Time " + s);
+          String source = event.getSource().getClass().getName();
+          model.addElement(" Source " + source);
+          
+          int mod = event.getModifiers();
+          StringBuffer buffer = new StringBuffer(" Modifiers: ");
+          
+          if ((mod & ActionEvent.ALT_MASK) > 0) {
+            buffer.append("Alt ");
+          }
+          if ((mod & ActionEvent.SHIFT_MASK) > 0) {
+            buffer.append("Shift ");
+          }
+          if ((mod & ActionEvent.CTRL_MASK) > 0) {
+            buffer.append("Ctrl ");
+          }
+
+          model.addElement(buffer);
       }
     });
     beep.setToolTipText("A Beep button");
