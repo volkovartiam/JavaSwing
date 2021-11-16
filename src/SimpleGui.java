@@ -58,7 +58,7 @@ public class SimpleGui extends JFrame {
   
   public SimpleGui() {
     setTitle("Event object");
-    setSize(400, 300);
+    setSize(400, 350);
     eventPanel.setSize(400, 100);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
