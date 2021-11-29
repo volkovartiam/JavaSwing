@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 //import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 //import java.awt.event.MouseAdapter;
 //import java.awt.event.MouseEvent;
@@ -37,10 +39,10 @@ import javax.swing.border.EtchedBorder;
  *
  * @version 1.0
 */
-public class SimpleGui extends JFrame {
+public class SimpleGui extends JFrame implements ComponentListener {
   
   PanelMain panel = new PanelMain();
-  JLabel statusBarLbl = new JLabel(" Show status");
+  JLabel statusBarLbl = new JLabel(" Show x and y");
   
   MenuFile file = new MenuFile();
   JMenu view = new JMenu("View");
@@ -65,7 +67,6 @@ public class SimpleGui extends JFrame {
 
     getContentPane().add(panel);
     
-    
     statusBarLbl.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
     add(statusBarLbl, BorderLayout.SOUTH);
     add(toolbar, BorderLayout.EAST);
@@ -78,10 +79,7 @@ public class SimpleGui extends JFrame {
     menubar.add(testItem);
     setJMenuBar(menubar);
     
-    //scrollPane.setSize(200, 10);
-    //add(eventPanel);
-    //add(scrollPane);
-    
+    addComponentListener(this);
   }
   
   /** 
@@ -121,6 +119,25 @@ public class SimpleGui extends JFrame {
     view.add(sbar);
     
   }
+  
+  public void componentHidden(ComponentEvent e) {
+
+  }
+
+  public void componentMoved(ComponentEvent e) {
+    int x = e.getComponent().getX();
+    int y = e.getComponent().getY();
+    statusBarLbl.setText("x = " + x  + " ;" +  "y = " + y + " ;"); 
+  }
+  
+  public void componentResized(ComponentEvent e) {
+
+  }
+
+  public void componentShown(ComponentEvent e) {
+
+  }
+
 }
 
 
