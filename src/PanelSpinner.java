@@ -1,6 +1,8 @@
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
@@ -8,10 +10,10 @@ import java.util.Calendar;
 //import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -20,6 +22,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 
@@ -34,34 +37,60 @@ import javax.swing.border.EtchedBorder;
 
 public class PanelSpinner extends JPanel {
 
-  /** 
-  * ...Constructor for sets parameters of JPanel...
-  */
   private JSpinner spinner;
   private static int count;
   private JLabel lbl;
+  private JCheckBox activeCheckBox;
+
+  /** 
+  * ...Constructor for sets parameters of JPanel...
+  */
   
   public PanelSpinner() {
 
+    this.setLayout(null);
     lbl = new JLabel("0");
-    lbl.setBounds(20, 160, 80, 40);
+    lbl.setHorizontalAlignment(SwingConstants.CENTER);
+    lbl.setBounds(5, 0, 30, 40);
     lbl.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
     this.add(lbl);
 
-    
     // text buttun with derived listener class
     var add = new JButton("+");
-    add.setBounds(20, 209, 80, 40);
+    add.setBounds(38, 0, 80, 40);
     this.add(add);
-    add.addActionListener(new ButtonListener1());
-    add.addActionListener(new ButtonListener2());
-    
+
+    // checkBox
+    activeCheckBox = new JCheckBox("Active Listener");
+    activeCheckBox.setBounds(5, 50, 160, 40);
+    this.add(activeCheckBox);
+
+    // Listeners
+    ButtonListener1 spinnerListener = new ButtonListener1();
+    ButtonListener2 lblListener = new ButtonListener2();
+
+    activeCheckBox.addItemListener(new ItemListener() {
+      public void itemStateChanged(ItemEvent event) {
+        if (activeCheckBox.isSelected()) {
+          add.addActionListener(lblListener);
+          add.addActionListener(spinnerListener);
+        } else {
+          add.removeActionListener(lblListener);
+          add.removeActionListener(spinnerListener);
+        } 
+      }
+    });
+
+    // Calendar instance
     Calendar calendar = Calendar.getInstance();
     int currentYear = calendar.get(Calendar.YEAR);
     System.out.println(currentYear);
     
-    SpinnerModel yearModel = new SpinnerNumberModel(currentYear,  currentYear - 100, currentYear + 100, 1);
+    SpinnerModel yearModel = new SpinnerNumberModel(currentYear,  
+        currentYear - 100, currentYear + 100, 1);
     spinner = new JSpinner(yearModel);
+    spinner.setSize(100, 40);
+    spinner.setLocation(128, 2);
     spinner.setEditor(new JSpinner.NumberEditor(spinner, "#"));
     
     this.add(spinner);
