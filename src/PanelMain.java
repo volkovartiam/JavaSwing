@@ -30,6 +30,9 @@ public class PanelMain extends JPanel {
   private JList list;
   private DefaultListModel model;
   Locale locale;
+  PanelSpinner pnlSpin = new PanelSpinner();
+
+  
 
   /** 
   * ...Constructor for sets parameters of JPanel...
@@ -45,6 +48,12 @@ public class PanelMain extends JPanel {
     list = new JList(model);
     list.setBounds(110, 22, 227, 115);
     this.add(list);
+
+    // Add panel with Spinner
+    pnlSpin.setSize(230, 100);
+    pnlSpin.setLocation(110, 160);
+    this.add(pnlSpin);
+
     
     // Button beep
     JButton beep = new JButton("Beep_OK");

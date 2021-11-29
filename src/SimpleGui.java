@@ -57,13 +57,14 @@ public class SimpleGui extends JFrame {
   */
   
   public SimpleGui() {
-    setTitle("Event object");
+    setTitle("Multiple listener");
     setSize(400, 350);
     eventPanel.setSize(400, 100);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
 
     getContentPane().add(panel);
+    
     
     statusBarLbl.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
     add(statusBarLbl, BorderLayout.SOUTH);
