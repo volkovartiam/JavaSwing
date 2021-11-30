@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 //import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -39,7 +40,7 @@ import javax.swing.border.EtchedBorder;
  *
  * @version 1.0
 */
-public class SimpleGui extends JFrame implements ComponentListener {
+public class SimpleGui extends JFrame  {
   
   PanelMain panel = new PanelMain();
   JLabel statusBarLbl = new JLabel(" Show x and y");
@@ -79,12 +80,13 @@ public class SimpleGui extends JFrame implements ComponentListener {
     menubar.add(testItem);
     setJMenuBar(menubar);
     
-    addComponentListener(this);
+    addComponentListener(new MoveAdapter());
   }
   
   /** 
   * ...main methode for creating example of frame...
   */
+
   public static void main(final String[] args) {
     
     try {
@@ -117,28 +119,21 @@ public class SimpleGui extends JFrame implements ComponentListener {
         }
     });
     view.add(sbar);
-    
   }
+
+  class MoveAdapter extends ComponentAdapter 
+  {
+    public void componentMoved(ComponentEvent e) {
+      int x = e.getComponent().getX();
+      int y = e.getComponent().getY();
+      statusBarLbl.setText("x = " + x  + " ;" +  "y = " + y + " ;"); 
+    }
+  }
+}  
   
-  public void componentHidden(ComponentEvent e) {
 
-  }
-
-  public void componentMoved(ComponentEvent e) {
-    int x = e.getComponent().getX();
-    int y = e.getComponent().getY();
-    statusBarLbl.setText("x = " + x  + " ;" +  "y = " + y + " ;"); 
-  }
   
-  public void componentResized(ComponentEvent e) {
 
-  }
-
-  public void componentShown(ComponentEvent e) {
-
-  }
-
-}
 
 
 
