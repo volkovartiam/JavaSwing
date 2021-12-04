@@ -22,12 +22,15 @@ public class MainGui {
       System.out.println("Error" + e.getStackTrace());
     }
 
-    FrameGui frameGui = new FrameGui();
-    frameGui.setVisible(true);
+    //FrameGui frameGui = new FrameGui();
+    //frameGui.setVisible(true);
 
-    FrameDialog frameDialog = new FrameDialog();
-    frameDialog.setVisible(true);
-    
+    //FrameDialog frameDialog = new FrameDialog();
+    //frameDialog.setVisible(true);
+
+    FrameFileChooser frameFileChooser = new FrameFileChooser();
+    frameFileChooser.setVisible(true);
+
   }
 }  
   
