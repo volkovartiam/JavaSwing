@@ -28,9 +28,12 @@ public class MainGui {
     //FrameDialog frameDialog = new FrameDialog();
     //frameDialog.setVisible(true);
 
-    FrameFileChooser frameFileChooser = new FrameFileChooser();
-    frameFileChooser.setVisible(true);
+    //FrameFileChooser frameFileChooser = new FrameFileChooser();
+    //frameFileChooser.setVisible(true);
 
+    FrameColorChooserDialog colorDialog = new FrameColorChooserDialog();
+    colorDialog.setVisible(true);
+    
   }
 }  
   
