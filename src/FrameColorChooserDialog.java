@@ -9,9 +9,11 @@ import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -30,6 +32,8 @@ public class FrameColorChooserDialog extends JFrame {
 
   private JPanel panel;
   private JPanel display;
+  private JLabel lbl;
+  
 
   /** 
   * ...FrameFileChooser constructor
@@ -58,9 +62,28 @@ public class FrameColorChooserDialog extends JFrame {
     add(panel);
     add(toolbar, BorderLayout.NORTH);
     
+    String lyrics = "<html> It's way to late think of<br>"
+        + "Someone I would call now<br><html>"; 
+    lbl = new JLabel(lyrics);
+    add(lbl);
+
+    JCheckBox checkBox = new JCheckBox("Show title", true);
+    checkBox.setFocusable(false);
+    checkBox.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+        if (getTitle() == "") {
+          setTitle("CheckBox example");
+        } else {
+          setTitle("");
+        }
+      }
+    });
+    add(checkBox, BorderLayout.SOUTH);
+
     setSize(400, 200);
     setLocationRelativeTo(null);
     setTitle("File color chooser dialog");
     setDefaultCloseOperation(EXIT_ON_CLOSE);
   }
+  
 }
