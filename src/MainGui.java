@@ -34,9 +34,11 @@ public class MainGui {
     //FrameColorChooserDialog colorDialog = new FrameColorChooserDialog();
     //colorDialog.setVisible(true);
 
-    FrameToggleButton frameToggleButton = new FrameToggleButton();
-    frameToggleButton.setVisible(true);
+    //FrameToggleButton frameToggleButton = new FrameToggleButton();
+    //frameToggleButton.setVisible(true);
 
+    FrameButtonModel frameButtonModel = new FrameButtonModel();
+    frameButtonModel.setVisible(true);
   }
 }  
   
