@@ -22,20 +22,20 @@ public class MainGui {
       System.out.println("Error" + e.getStackTrace());
     }
 
-    //FrameGui frameGui = new FrameGui();
-    //frameGui.setVisible(true);
+    FrameGui frameGui = new FrameGui();
+    frameGui.setVisible(true);
 
-    //FrameDialog frameDialog = new FrameDialog();
-    //frameDialog.setVisible(true);
+    FrameDialog frameDialog = new FrameDialog();
+    frameDialog.setVisible(true);
 
-    //FrameFileChooser frameFileChooser = new FrameFileChooser();
-    //frameFileChooser.setVisible(true);
+    FrameFileChooser frameFileChooser = new FrameFileChooser();
+    frameFileChooser.setVisible(true);
 
-    //FrameColorChooserDialog colorDialog = new FrameColorChooserDialog();
-    //colorDialog.setVisible(true);
+    FrameColorChooserDialog colorDialog = new FrameColorChooserDialog();
+    colorDialog.setVisible(true);
 
-    //FrameToggleButton frameToggleButton = new FrameToggleButton();
-    //frameToggleButton.setVisible(true);
+    FrameToggleButton frameToggleButton = new FrameToggleButton();
+    frameToggleButton.setVisible(true);
 
     FrameButtonModel frameButtonModel = new FrameButtonModel();
     frameButtonModel.setVisible(true);
